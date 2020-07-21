@@ -4,7 +4,7 @@
 
    O projeto tem como objetivo, cadastrar um Cliente(usuário) com seus dados pessoais dentro de um menu interativo
 usando o próprio Python Console.
-   Esses dados são armazenados em um Banco de Dados, assim, ao reiniciar o Console os dados não são perdidos ou
+    Esses dados são armazenados em um Banco de Dados, assim, ao reiniciar o Console os dados não são perdidos ou
 apagados.
     O sistema foi criado para o estudo da linguagem Python, usando um caso de entrada, saída e armazenamento de dados
 junto a Linhagem SLQ.
@@ -15,14 +15,14 @@ junto a Linhagem SLQ.
 
 # Exemplo de Uso
 
-## Criação do BD:
-'''
+Criação do BD:
+```
 CREATE DATABASE LojaPython
 USE LojaPython
-'''
+```
 
-## Criação da Tabela:
-'''
+Criação da Tabela:
+```
 CREATE TABLE IF NOT EXISTS Cliente(
 ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
 Primeiro_Nome VARCHAR(255) NOT NULL,
@@ -33,10 +33,10 @@ Endereco VARCHAR(255) NOT NULL,
 Cidade VARCHAR(255) NOT NULL,
 Estado CHAR(2) NOT NULL,
 Avaliacao INT NOT NULL);
-'''
+```
 
 # Bibliotecas e configurações
 
-'''
+```
 import mysql.connect
-'''
+```
