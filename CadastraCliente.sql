@@ -12,6 +12,3 @@ Cidade VARCHAR(255) NOT NULL,
 Estado CHAR(2) NOT NULL,
 Avaliacao INT NOT NULL
 );
-
-SELECT * FROM Cliente;
-DROP DATABASE LojaPython;
