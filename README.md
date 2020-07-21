@@ -11,6 +11,7 @@ junto a Linhagem SLQ.
 
 # Tecnologias Utilizadas
 > Python 3
+
 > MySQL
 
 # Exemplo de Uso
@@ -35,8 +36,23 @@ Estado CHAR(2) NOT NULL,
 Avaliacao INT NOT NULL);
 ```
 
-# Bibliotecas e configurações
+# Bibliotecas e Configurações
+
+Biblioteca Python Utilizada.
 
 ```
 import mysql.connect
+```
+
+Configuração do Python para se conectar com o MySQL.
+```
+myBD = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="LojaPython"
+)
+
+cursor = myBD.cursor()
+cursor.execute('USE lojaPython')
 ```
