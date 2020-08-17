@@ -2,12 +2,23 @@
 
 > Um sistema simples de cadastro com conexão direta a um banco de Dados Local.
 
-  O projeto tem como objetivo, cadastrar um Cliente com seus dados pessoais dentro de um menu interativo
-usando o próprio Python Console.
-    Esses dados são armazenados em um Banco de Dados, assim, ao reiniciar o Console os dados não são perdidos ou
-apagados.
-    O sistema foi criado para o estudo da linguagem Python, usando um caso de entrada, saída e armazenamento de dados
-junto a Linguagem SLQ.
+  Criar um Banco de Dados MySQL contendo os campos:
+- ID;
+- Primeiro_Nome ;
+- Ultimo_Nome ;
+- Idade;
+- Sexo ;
+- Endereço;
+- Cidade ;
+- Estado ;
+- Avaliação.
+
+O programa deve se conectar com o BD e fazer modificações dentro dele, através de opções que podem ser selecionadas
+dentro de um menu, como:
+- Cadastrar um novo Cliente;
+- Buscar por um Cliente Específico;
+- Consultar todos os Clientes.
+O programa deve finalizar apenas quando o usuário não desejar mais fazer alterações.
 
 # Tecnologias Utilizadas
 * **_Python 3;_**
@@ -17,12 +28,42 @@ junto a Linguagem SLQ.
 
 # Exemplo de Uso
 
-### Criação do BD:
+### Classe:
 ```
-CREATE DATABASE IF NOT EXISTS LojaPython;
-USE LojaPython;
+class EntrarNoBanco:
+    def __init__(self):
+        # Cria a conexão com o BD.
+        self.myBD = mysql.connector.connect(host="localhost", user="root", password="", database="lojaPython")
+
+        # Cria um Cursor.
+        self.cursor = self.myBD.cursor()
+        self.cursor.execute('USE lojaPython')
 ```
-![Criação do BD](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/CriaBD.PNG)
+![Conexão do BD](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/Classe.PNG)
+
+### Função que busca Clientes no BD:
+```
+    def BucarCliente(self):
+        print('\n==============================')
+        print('{:^29}'.format('BUSCANDO UM CLIENTE'))
+        print('=' * 30)
+
+        # Pergunta para o usuário.
+        busca_pNome = str(input('Primeiro Nome: '))
+        busca_uNome = str(input('Último Nome: '))
+
+        # Passa pela tabela procurando os valores inseridos.
+        self.cursor.execute("""SELECT * FROM Cliente
+                        WHERE Primeiro_Nome = '{}' AND Ultimo_Nome = '{}' """.format(busca_pNome, busca_uNome))
+
+        select = self.cursor.fetchall()
+
+        print()
+        for x in select:
+            print(x)
+        print()
+```
+![Busca Cliente](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/Funcao.PNG)
 
 ### Criação da Tabela:
 ```
@@ -39,7 +80,8 @@ Avaliacao INT NOT NULL);
 ```
 ![Criação da Tabela](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/TabelaBD.PNG)
 
-> Como o BD não foi criado dentro do Python é necessário que a parte do _CREATE DATABASE_ seja executado primero no MySQL, o resto é por conta do código.
+> Como o BD não foi criado dentro do Python é necessário que a parte do _CREATE DATABASE_ seja executado primero no
+MySQL, o resto é por conta do código.
 
 # Bibliotecas e Configurações
 
@@ -48,7 +90,7 @@ Avaliacao INT NOT NULL);
 ```
 import mysql.connector
 ```
-![Biblioteca](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/Import.PNG)
+![Biblioteca](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/Biblioteca.PNG)
 
 ### Configuração do Python para se conectar com o MySQL.
 ```
@@ -63,13 +105,3 @@ cursor = myBD.cursor()
 cursor.execute('USE lojaPython')
 ```
 ![Configuração](https://github.com/ThiagoLozano/Cadastro-de-Cliente/blob/master/Screenshot/Conexao.PNG)
-
-# Menu do Console
-* Foi criado um menu simples de interação com o usuário, apenas para simular um cadastro de forma intuitiva.
-* Uma parte importante do código é a validação dos dados que o usuário digitar para que não haja nenhum tipo de conflito com o BD.
-
-### Opções do menu
-* Cadastrar um Cliente Novo;
-* Buscar Cliente(s) Expecífico(s);
-* Consultar Clientes já Cadastrados;
-* Sair do Menu.
